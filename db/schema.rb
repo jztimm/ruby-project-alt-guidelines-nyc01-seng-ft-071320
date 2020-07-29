@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_07_28_214649) do
+ActiveRecord::Schema.define(version: 2020_07_29_160743) do
 
   create_table "movie_theaters", force: :cascade do |t|
     t.string "name"
@@ -23,7 +23,7 @@ ActiveRecord::Schema.define(version: 2020_07_28_214649) do
     t.integer "rating"
   end
 
-  create_table "now_playings", force: :cascade do |t|
+  create_table "reservations", force: :cascade do |t|
     t.integer "movies_id"
     t.integer "movie_theaters_id"
   end

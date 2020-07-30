@@ -1,0 +1,19 @@
+A user should be able to log in
+A user should be able to see a list of movies
+A user should be able to select a movie
+A user should be able to select a theater to watch that movie
+A user should be able to see what movies and what theaters they selected as a pair
+
+
+
+
+
+
+
+
+
+
+
+
+
+

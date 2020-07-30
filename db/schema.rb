@@ -10,7 +10,12 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_07_29_160743) do
+ActiveRecord::Schema.define(version: 2020_07_30_030543) do
+
+  create_table "movie_rights", force: :cascade do |t|
+    t.integer "movies_id"
+    t.integer "movie_theaters_id"
+  end
 
   create_table "movie_theaters", force: :cascade do |t|
     t.string "name"
@@ -24,8 +29,13 @@ ActiveRecord::Schema.define(version: 2020_07_29_160743) do
   end
 
   create_table "reservations", force: :cascade do |t|
-    t.integer "movies_id"
-    t.integer "movie_theaters_id"
+    t.integer "users_id"
+    t.integer "movie_rights_id"
+  end
+
+  create_table "users", force: :cascade do |t|
+    t.string "name"
+    t.integer "age"
   end
 
 end

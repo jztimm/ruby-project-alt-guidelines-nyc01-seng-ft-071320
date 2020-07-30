@@ -33,9 +33,10 @@ class Cli
                 user.reserve(new_movie_rights)
             end
 
-            user.reserved_movies
-
+        else
+            return user
         end
+        # User.reserved_movies(user)
     end
 
 end

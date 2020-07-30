@@ -15,7 +15,7 @@ class User < ActiveRecord::Base
         elsif answer == "1"
             system("clear")
             sleep(1)
-            user = User.login
+            User.login
         else
             puts "Invalid answer. Please enter a valid answer"
             self.start
@@ -60,16 +60,16 @@ class User < ActiveRecord::Base
         MovieRight.all.map { |movie_right| movie_right}
     end
 
-    # def make_rights(movie_id, movie_theater_id)
-    #     MakeRight.create(movie_id: movie_id, movie_theater_id: movie_theater_id)
-    # end
-
-    def reserved_movies
-        self.movie_rights.map{|rights| rights.movie}.uniq
-    end
-
+    
 end
 
+# def make_rights(movie_id, movie_theater_id)
+#     MakeRight.create(movie_id: movie_id, movie_theater_id: movie_theater_id)
+# end
+
+# def  self.reserved_movies(user)
+#     user.movie_rights.map{|rights| rights.movie}.uniq
+# end
 
 # def confirm_info(user)
 #         system("clear")

@@ -26,17 +26,20 @@ class Cli
             movie_rights = MovieRight.all.find_by(movies_id: movie.id, movie_theaters_id: movie_theater.id)
 
             if movie_rights
-                user.reserve(movie_rights)
-                user.reserved_movies
+                User.reserve(movie_rights)
+                User.reserved_movies
             else
                 new_movie_rights = MovieRight.make_rights(movie.id, movie_theater.id)
-                user.reserve(new_movie_rights)
-                user.reserved_movies
+                User.reserve(new_movie_rights)
+                User.reserved_movies
             end
+
+            # user.reserved_movies
 
         end
     end
 
+end
 
 
     
@@ -56,7 +59,6 @@ class Cli
     #     User.login
     # end
 
-end
 
 
 

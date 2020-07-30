@@ -4,13 +4,15 @@ class User < ActiveRecord::Base
 
     def self.start
         puts "Welcome to Movie App. Would you like to login or sign up?"
+        puts "To log in, enter '1'"
+        puts "To sign up, enter '2'"
         answer = STDIN.gets.chomp
 
-        if answer == "sign up"
+        if answer == "2"
             system("clear")
             sleep(1)
             User.register
-        elsif answer == "login"
+        elsif answer == "1"
             system("clear")
             sleep(1)
             user = User.login
@@ -54,8 +56,16 @@ class User < ActiveRecord::Base
         Reservation.create(users_id: self.id, movie_rights_id: movie_rights.id)
     end
 
+    def movie_rights
+        MovieRight.all.map { |movie_right| movie_right}
+    end
+
+    # def make_rights(movie_id, movie_theater_id)
+    #     MakeRight.create(movie_id: movie_id, movie_theater_id: movie_theater_id)
+    # end
+
     def reserved_movies
-        User.movie_rights.map{|rights| rights.movie}.uniq
+        self.movie_rights.map{|rights| rights.movie}.uniq
     end
 
 end

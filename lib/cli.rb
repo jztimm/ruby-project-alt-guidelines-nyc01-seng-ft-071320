@@ -29,8 +29,8 @@ class Cli
                 user.reserve(movie_rights)
                 user.reserved_movies
             else
-                MovieRight.make_rights(movie.id, movie_theater.id)
-                user.reserve(movie_rights)
+                new_movie_rights = MovieRight.make_rights(movie.id, movie_theater.id)
+                user.reserve(new_movie_rights)
                 user.reserved_movies
             end
 

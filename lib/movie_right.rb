@@ -4,8 +4,8 @@ class MovieRight < ActiveRecord::Base
     has_many :reservations
     has_many :users, through: :reservations
 
-    def make_rights
-        self.create(movies_id: movie.id, movie_theaters_id: movie_theater.id)
+    def self.make_rights(movie_id, movie_theater_id)
+        self.create(movies_id: movie_id, movie_theaters_id: movie_theater_id)
     end
 
 end

@@ -1,5 +1,7 @@
+User.delete_all
 Movie.delete_all
 MovieTheater.delete_all
+MovieRight.delete_all
 Reservation.delete_all
 
 u1 = User.create(name: "jzavier", age: 21, password: "1234")

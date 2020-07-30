@@ -1,6 +1,58 @@
 class User < ActiveRecord::Base
     has_many :reservations
-    has_many :movie_rights, through :reservations
+    has_many :movie_rights, through: :reservations
+
+    def self.start
+        puts "Welcome to Movie App. Would you like to login or sign up?"
+        answer = STDIN.gets.chomp
+
+        if answer == "sign up"
+            system("clear")
+            sleep(1)
+            User.register
+        elsif answer == "login"
+            system("clear")
+            sleep(1)
+            user = User.login
+        else
+            puts "Invalid answer. Please enter a valid answer"
+            self.start
+        end
+    end
+
+    def self.register
+        puts "Please sign up."
+        puts "\n"
+        puts "What is your name?"
+        name = STDIN.gets.chomp
+        puts "\n"
+        puts "What's your age?"
+        age = STDIN.gets.chomp
+        puts "\n"
+        puts "Create a password:"
+        password = STDIN.gets.chomp
+            
+        system("clear")
+        sleep(1)
+            
+        user = User.create(name: name, age: age, password: password)
+        # User.confirm_info(user)
+
+        Cli.start
+    end
+
+    def self.login
+        puts "Please enter your name:"
+        user_name = STDIN.gets.chomp
+        puts "Please enter your password:"
+        user_pass = STDIN.gets.chomp
+        
+        user = User.find_by(name: user_name, password: user_pass)
+    end
+
+    def reserve(movie_rights)
+        Reservation.create(users_id: self.id, movie_rights_id: movie_rights.id)
+    end
 
     def reserved_movies
         User.movie_rights.map{|rights| rights.movie}.uniq
@@ -9,7 +61,21 @@ class User < ActiveRecord::Base
 end
 
 
+# def confirm_info(user)
+#         system("clear")
+#         puts "\n"
+#         puts "Here is your profile:"
+#         puts "\n"
+#         puts "Your name is: #{name}"
+#         puts "Your age is: #{age}"
+#         puts "Your password is: #{password}"
+#         puts "\n"
+#         # is_right
 
+#         sleep(1)
+#         system("clear")
+#         Cli.start
+#     end
 
 
 

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_07_30_030543) do
+ActiveRecord::Schema.define(version: 2020_07_30_151901) do
 
   create_table "movie_rights", force: :cascade do |t|
     t.integer "movies_id"
@@ -36,6 +36,7 @@ ActiveRecord::Schema.define(version: 2020_07_30_030543) do
   create_table "users", force: :cascade do |t|
     t.string "name"
     t.integer "age"
+    t.string "password"
   end
 
 end

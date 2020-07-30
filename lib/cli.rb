@@ -6,6 +6,7 @@ class Cli
         user = User.start
 
         if user
+            system("clear")
             puts "Welcome! Thank you for logging in! Would you like to watch one of these movies?"
             puts "If yes, enter the name of the movie you would like to watch:"
             Movie.all.each do |movies|
@@ -26,38 +27,18 @@ class Cli
             movie_rights = MovieRight.all.find_by(movies_id: movie.id, movie_theaters_id: movie_theater.id)
 
             if movie_rights
-                User.reserve(movie_rights)
-                User.reserved_movies
+                user.reserve(movie_rights)
             else
                 new_movie_rights = MovieRight.make_rights(movie.id, movie_theater.id)
-                User.reserve(new_movie_rights)
-                User.reserved_movies
+                user.reserve(new_movie_rights)
             end
 
-            # user.reserved_movies
+            user.reserved_movies
 
         end
     end
 
 end
-
-
-    
-
-    # def is_right
-    #     puts "Is this correct?"
-    #     puts "Enter 1 for YES, 2 for NO"
-    #     answer = gets.chomp
-    #     confirmation(answer)
-    # end
-
-    # if user
-    #     Cli.confirm_info(user)
-    # else
-    #     puts "No user found with that name and password. Please try again"
-    #     sleep(1)
-    #     User.login
-    # end
 
 
 

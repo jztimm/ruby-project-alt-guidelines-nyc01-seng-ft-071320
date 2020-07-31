@@ -13,6 +13,7 @@ class Cli
                 puts "\n"
                 puts movies.name
             end
+            puts "\n"
             movie_name = STDIN.gets.chomp 
             movie = Movie.find_by(name: movie_name)
 

@@ -11,20 +11,26 @@ puts"
      #        #  #  #  # #####   #  #  # #     #    #        #  #  #  #     
      #        #  #   # # #       #     # #######    #        #  #   # #     
      #     #  #  #    ## #       #     # #     #    #     #  #  #    ##    
-      #####  ### #     # ####### #     # #     #     #####  ### #     #     
+      #####  ### #     # ####### #     # #     #     #####  ### #     # 
+      
+                                                        By: jzavier Timm
+                                                            &   Israel Canessa
     "
     puts "\n\n\n"
     
-        puts "Welcome to Cinema Cin. Login or Sign up"
-        puts "To login, enter '1'"
-        puts "To sign up, enter '2'"
-        answer = STDIN.gets.chomp
+        # puts "Welcome to Cinema Cin. Login or Sign up"
+        # puts "To login, enter '1'"
+        # puts "To sign up, enter '2'"
+        
+        prompt = TTY::Prompt.new
+        answer = prompt.select("Welcome to Cinema Cin. Login or Sign up", %w(signup login))
+        # answer = STDIN.gets.chomp
 
-        if answer == "2"
+        if answer == "signup"
             # system("clear")
             sleep(1)
             User.register
-        elsif answer == "1"
+        elsif answer == "login"
             # system("clear")
             sleep(1)
             User.login
@@ -35,16 +41,24 @@ puts"
     end
 
     def self.register
-        puts "\n"
-        puts "Please sign up. \n"
-        puts "Enter your your full name"
-        name = STDIN.gets.chomp
-        puts "\n"
-        puts "Enter your age"
-        age = STDIN.gets.chomp
-        puts "\n"
-        puts "Create a password: "
-        password = STDIN.gets.chomp
+        
+        prompt = TTY::Prompt.new
+        name = prompt.ask("Please enter your full name:") 
+        
+        age = prompt.select("Select your age range:", %w(<12 >13 18+))
+        
+        password = prompt.mask("Please enter a password:")
+
+        # puts "\n"
+        # puts "Please sign up. \n"
+        # puts "Enter your your full name"
+        # name = STDIN.gets.chomp
+        # puts "\n"
+        # puts "Enter your age"
+        # age = STDIN.gets.chomp
+        # puts "\n"
+        # puts "Create a password: "
+        # password = STDIN.gets.chomp
         sleep(1)
         puts "\n"
         puts "Account successfully created! You can now login"
@@ -60,13 +74,19 @@ puts"
     end
 
     def self.login
-        puts "\n"
-        puts "Please enter your name:"
-        user_name = STDIN.gets.chomp
-        puts "Please enter your password:"
-        user_pass = STDIN.gets.chomp
         
-        user = User.find_by(name: user_name, password: user_pass)
+        prompt = TTY::Prompt.new
+        name = prompt.ask("Please enter your full name:") 
+                
+        password = prompt.mask("Please enter your password:")
+        
+        # puts "\n"
+        # puts "Please enter your name:"
+        # user_name = STDIN.gets.chomp
+        # puts "Please enter your password:"
+        # user_pass = STDIN.gets.chomp
+        
+        user = User.find_by(name: name, password: password)
 
         # if user != nil
         #     next

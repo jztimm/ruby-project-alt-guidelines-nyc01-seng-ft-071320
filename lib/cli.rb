@@ -7,8 +7,7 @@ class Cli
 
         if user
             system("clear")
-            puts "Welcome #{user.name.titleize}! Thank you for logging in! Would you like to watch one of these movies?"
-            puts "If yes, enter the name of the movie you would like to watch:"
+            puts "Welcome #{user.name.titleize}! Thank you for logging in! Here are the current movies available at local cinemas"
             Movie.all.each do |movies|
                 puts "\n"
                 puts movies.name
@@ -18,8 +17,8 @@ class Cli
             movie = Movie.find_by(name: movie_name)
 
             puts "\n"
-            puts "Where would you like to watch this movie?"
-            puts "Enter the name of the one of the available theaters you would like to attend:"
+            puts "Reserve a ticket at one of your local cinemas"
+            puts "Enter the name of the one of the available theaters you want to reserve:"
             MovieTheater.all.each do |movieTheaters|
                 puts "\n"
                 puts movieTheaters.name + ", " + movieTheaters.location
@@ -37,6 +36,7 @@ class Cli
                 new_movie_rights = MovieRight.make_rights(movie.id, movie_theater.id)
                 user.reserve(new_movie_rights)
             end
+            puts "\n"
             puts "Thank you for reserving #{movie_name}, at #{movie_theater_name}"
         else
             return user

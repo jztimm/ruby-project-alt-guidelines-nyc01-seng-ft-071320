@@ -4,7 +4,7 @@ class User < ActiveRecord::Base
 
     def self.start
 
-puts"
+    puts"
       #####  ### #     # ####### #     #    #        #####  ### #     #     
      #     #  #  ##    # #       ##   ##   # #      #     #  #  ##    #     
      #        #  # #   # #       # # # #  #   #     #        #  # #   #     
@@ -80,25 +80,58 @@ puts"
         puts "Login:\n"
 
         name = prompt.ask("Please enter your full name:") 
-                
         password = prompt.mask("Please enter your password:")
-        
-        # puts "\n"
-        # puts "Please enter your name:"
-        # user_name = STDIN.gets.chomp
-        # puts "Please enter your password:"
-        # user_pass = STDIN.gets.chomp
         
         user = User.find_by(name: name, password: password)
 
-        # if user != nil
-        #     next
-        # else
-        #     puts "Sorry, invalid name or password"
-        #     sleep(1)
-        #     Cli.start
-        # end
+    end
 
+    def what_to_do
+        prompt = TTY::Prompt.new
+        action = prompt.select("What would you like to do?", %w(reserve_a_movie see_reserved_movies quit))
+        
+        if action == "reserve_a_movie"
+            system("clear")
+            result = self.find_a_movie
+        elsif action == "see_reserved_movies"
+            self.reserved_movies
+        elsif action == "quit"
+            Cli.start
+        end
+    end
+
+    def find_a_movie
+        puts "Welcome #{self.name.titleize}! Thank you for logging in! Here are the current movies available at local cinemas"
+        Movie.all.each do |movies|
+            puts "\n"
+            puts movies.name
+        end
+        puts "\n"
+        movie_name = STDIN.gets.chomp 
+        movie = Movie.find_by(name: movie_name)
+
+        puts "\n"
+        puts "Reserve a ticket at one of your local cinemas"
+        puts "Enter the name of the one of the available theaters you want to reserve:"
+        MovieTheater.all.each do |movieTheaters|
+            puts "\n"
+            puts movieTheaters.name + ", " + movieTheaters.location
+            puts "\n"
+        end
+        
+        movie_theater_name = STDIN.gets.chomp
+        movie_theater = MovieTheater.find_by(name: movie_theater_name)
+
+        movie_rights = MovieRight.all.find_by(movies_id: movie.id, movie_theaters_id: movie_theater.id)
+
+        if movie_rights
+            self.reserve(movie_rights)
+        else
+            new_movie_rights = MovieRight.make_rights(movie.id, movie_theater.id)
+            self.reserve(new_movie_rights)
+        end
+        puts "\n"
+        puts "Thank you for reserving #{movie_name}, at #{movie_theater_name}"
     end
 
     def reserve(movie_rights)
@@ -109,6 +142,13 @@ puts"
         MovieRight.all.map { |movie_right| movie_right}
     end
 
+    def reservations
+        puts "All the reservs"
+    end
+
+    # def reserved_movies
+    #     self.
+    # end
     
 end
 

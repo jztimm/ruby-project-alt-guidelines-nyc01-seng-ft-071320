@@ -1,3 +1,4 @@
+require 'pry'
 class User < ActiveRecord::Base
     has_many :reservations
     has_many :movie_rights, through: :reservations
@@ -84,10 +85,12 @@ class User < ActiveRecord::Base
         
         user = User.find_by(name: name, password: password)
 
+        #what_to_do
     end
 
     def what_to_do
         prompt = TTY::Prompt.new
+        puts "Welcome #{self.name.titleize}! Thank you for logging in!"
         action = prompt.select("What would you like to do?", %w(reserve_a_movie see_reserved_movies quit))
         
         if action == "reserve_a_movie"
@@ -101,7 +104,7 @@ class User < ActiveRecord::Base
     end
 
     def find_a_movie
-        puts "Welcome #{self.name.titleize}! Thank you for logging in! Here are the current movies available at local cinemas"
+        puts "Here are the current movies available at local cinemas"
         Movie.all.each do |movies|
             puts "\n"
             puts movies.name
@@ -143,12 +146,12 @@ class User < ActiveRecord::Base
     end
 
     def reservations
-        puts "All the reservs"
+        Reservation.all.map { |res| res.users_id == self}
     end
 
-    # def reserved_movies
-    #     self.
-    # end
+    def reserved_movies
+        self.reservations.select { |res| res.movie_id}
+    end
     
 end
 

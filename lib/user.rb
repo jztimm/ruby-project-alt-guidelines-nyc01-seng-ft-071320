@@ -18,8 +18,8 @@ puts"      #####  ### #     # ####### #     # #     #     #####  ### #     #    
 
 
 
-        puts "Welcome to Movie App. Would you like to login or sign up?"
-        puts "To log in, enter '1'"
+        puts "Welcome to Cinema Cin. Login or Sign up"
+        puts "To login, enter '1'"
         puts "To sign up, enter '2'"
         answer = STDIN.gets.chomp
 
@@ -40,14 +40,18 @@ puts"      #####  ### #     # ####### #     # #     #     #####  ### #     #    
     def self.register
         puts "\n"
         puts "Please sign up. \n"
-        puts "What is your name? "
+        puts "Enter your your full name"
         name = STDIN.gets.chomp
         puts "\n"
-        puts "What's your age? "
+        puts "Enter your age"
         age = STDIN.gets.chomp
         puts "\n"
         puts "Create a password: "
         password = STDIN.gets.chomp
+        sleep(1)
+        puts "\n"
+        puts "Account successfully created!"
+        sleep(3)
             
         system("clear")
         sleep(1)

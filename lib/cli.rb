@@ -7,7 +7,7 @@ class Cli
 
         if user
             system("clear")
-            puts "Welcome! Thank you for logging in! Would you like to watch one of these movies?"
+            puts "Welcome #{user.name.titleize}! Thank you for logging in! Would you like to watch one of these movies?"
             puts "If yes, enter the name of the movie you would like to watch:"
             Movie.all.each do |movies|
                 puts "\n"

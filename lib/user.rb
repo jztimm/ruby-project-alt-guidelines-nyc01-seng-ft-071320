@@ -70,12 +70,15 @@ puts"
         user = User.create(name: name, age: age, password: password)
         # User.confirm_info(user)
 
-        Cli.start
+        login
     end
 
     def self.login
         
         prompt = TTY::Prompt.new
+
+        puts "Login:\n"
+
         name = prompt.ask("Please enter your full name:") 
                 
         password = prompt.mask("Please enter your password:")

@@ -3,17 +3,32 @@ class User < ActiveRecord::Base
     has_many :movie_rights, through: :reservations
 
     def self.start
+
+puts"      #####  ### #     # ####### #     #    #        #####  ### #     #    " 
+puts"     #     #  #  ##    # #       ##   ##   # #      #     #  #  ##    #    " 
+puts"     #        #  # #   # #       # # # #  #   #     #        #  # #   #    " 
+puts"     #        #  #  #  # #####   #  #  # #     #    #        #  #  #  #    " 
+puts"     #        #  #   # # #       #     # #######    #        #  #   # #    " 
+puts"     #     #  #  #    ## #       #     # #     #    #     #  #  #    ##    " 
+puts"      #####  ### #     # ####### #     # #     #     #####  ### #     #    " 
+    
+    puts "\n"
+    puts "\n"
+    puts "\n"
+
+
+
         puts "Welcome to Movie App. Would you like to login or sign up?"
         puts "To log in, enter '1'"
         puts "To sign up, enter '2'"
         answer = STDIN.gets.chomp
 
         if answer == "2"
-            system("clear")
+            # system("clear")
             sleep(1)
             User.register
         elsif answer == "1"
-            system("clear")
+            # system("clear")
             sleep(1)
             User.login
         else
@@ -23,15 +38,15 @@ class User < ActiveRecord::Base
     end
 
     def self.register
-        puts "Please sign up."
         puts "\n"
-        puts "What is your name?"
+        puts "Please sign up. \n"
+        puts "What is your name? "
         name = STDIN.gets.chomp
         puts "\n"
-        puts "What's your age?"
+        puts "What's your age? "
         age = STDIN.gets.chomp
         puts "\n"
-        puts "Create a password:"
+        puts "Create a password: "
         password = STDIN.gets.chomp
             
         system("clear")
@@ -44,6 +59,7 @@ class User < ActiveRecord::Base
     end
 
     def self.login
+        puts "\n"
         puts "Please enter your name:"
         user_name = STDIN.gets.chomp
         puts "Please enter your password:"

@@ -10,17 +10,21 @@ class Cli
             puts "Welcome! Thank you for logging in! Would you like to watch one of these movies?"
             puts "If yes, enter the name of the movie you would like to watch:"
             Movie.all.each do |movies|
+                puts "\n"
                 puts movies.name
             end
             movie_name = STDIN.gets.chomp 
             movie = Movie.find_by(name: movie_name)
 
+            puts "\n"
             puts "Where would you like to watch this movie?"
-            puts "Enter the name of the theater you would like to attend:"
+            puts "Enter the name of the one of the available theaters you would like to attend:"
             MovieTheater.all.each do |movieTheaters|
+                puts "\n"
                 puts movieTheaters.name + ", " + movieTheaters.location
                 puts "\n"
             end
+            
             movie_theater_name = STDIN.gets.chomp
             movie_theater = MovieTheater.find_by(name: movie_theater_name)
 

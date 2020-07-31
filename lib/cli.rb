@@ -36,7 +36,7 @@ class Cli
                 new_movie_rights = MovieRight.make_rights(movie.id, movie_theater.id)
                 user.reserve(new_movie_rights)
             end
-
+            puts "Thank you for reserving #{movie_name}, at #{movie_theater_name}"
         else
             return user
         end

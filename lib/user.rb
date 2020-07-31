@@ -4,20 +4,17 @@ class User < ActiveRecord::Base
 
     def self.start
 
-puts"      #####  ### #     # ####### #     #    #        #####  ### #     #    " 
-puts"     #     #  #  ##    # #       ##   ##   # #      #     #  #  ##    #    " 
-puts"     #        #  # #   # #       # # # #  #   #     #        #  # #   #    " 
-puts"     #        #  #  #  # #####   #  #  # #     #    #        #  #  #  #    " 
-puts"     #        #  #   # # #       #     # #######    #        #  #   # #    " 
-puts"     #     #  #  #    ## #       #     # #     #    #     #  #  #    ##    " 
-puts"      #####  ### #     # ####### #     # #     #     #####  ### #     #    " 
+puts"
+      #####  ### #     # ####### #     #    #        #####  ### #     #     
+     #     #  #  ##    # #       ##   ##   # #      #     #  #  ##    #     
+     #        #  # #   # #       # # # #  #   #     #        #  # #   #     
+     #        #  #  #  # #####   #  #  # #     #    #        #  #  #  #     
+     #        #  #   # # #       #     # #######    #        #  #   # #     
+     #     #  #  #    ## #       #     # #     #    #     #  #  #    ##    
+      #####  ### #     # ####### #     # #     #     #####  ### #     #     
+    "
+    puts "\n\n\n"
     
-    puts "\n"
-    puts "\n"
-    puts "\n"
-
-
-
         puts "Welcome to Cinema Cin. Login or Sign up"
         puts "To login, enter '1'"
         puts "To sign up, enter '2'"
@@ -50,7 +47,7 @@ puts"      #####  ### #     # ####### #     # #     #     #####  ### #     #    
         password = STDIN.gets.chomp
         sleep(1)
         puts "\n"
-        puts "Account successfully created!"
+        puts "Account successfully created! You can now login"
         sleep(3)
             
         system("clear")
@@ -70,6 +67,15 @@ puts"      #####  ### #     # ####### #     # #     #     #####  ### #     #    
         user_pass = STDIN.gets.chomp
         
         user = User.find_by(name: user_name, password: user_pass)
+
+        # if user != nil
+        #     next
+        # else
+        #     puts "Sorry, invalid name or password"
+        #     sleep(1)
+        #     Cli.start
+        # end
+
     end
 
     def reserve(movie_rights)

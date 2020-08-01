@@ -24,21 +24,22 @@ class User < ActiveRecord::Base
         # puts "To sign up, enter '2'"
         
         prompt = TTY::Prompt.new
-        answer = prompt.select("Welcome to Cinema Cin. Login or Sign up", %w(signup login))
-        # answer = STDIN.gets.chomp
+        answer = prompt.select("Welcome to Cinema Cin. Login or Sign up", %w(signup login quit))
 
         if answer == "signup"
-            # system("clear")
             sleep(1)
             User.register
         elsif answer == "login"
-            # system("clear")
             sleep(1)
             User.login
+        elsif action == "quit"
+            return
         else
             puts "Invalid answer. Please enter a valid answer"
             self.start
         end
+
+
     end
 
     def self.register
@@ -50,16 +51,6 @@ class User < ActiveRecord::Base
         
         password = prompt.mask("Please enter a password:")
 
-        # puts "\n"
-        # puts "Please sign up. \n"
-        # puts "Enter your your full name"
-        # name = STDIN.gets.chomp
-        # puts "\n"
-        # puts "Enter your age"
-        # age = STDIN.gets.chomp
-        # puts "\n"
-        # puts "Create a password: "
-        # password = STDIN.gets.chomp
         sleep(1)
         puts "\n"
         puts "Account successfully created! You can now login"
@@ -69,8 +60,6 @@ class User < ActiveRecord::Base
         sleep(1)
             
         user = User.create(name: name, age: age, password: password)
-        # User.confirm_info(user)
-
         login
     end
 
@@ -84,13 +73,11 @@ class User < ActiveRecord::Base
         password = prompt.mask("Please enter your password:")
         
         user = User.find_by(name: name, password: password)
-
-        #what_to_do
     end
 
     def what_to_do
         prompt = TTY::Prompt.new
-        puts "Welcome #{self.name.titleize}! Thank you for logging in!"
+        puts "\nWelcome #{self.name.titleize}! Thank you for logging in!"
         action = prompt.select("What would you like to do?", %w(reserve_a_movie see_reserved_movies quit))
         
         if action == "reserve_a_movie"
@@ -104,26 +91,27 @@ class User < ActiveRecord::Base
     end
 
     def find_a_movie
-        puts "Here are the current movies available at local cinemas"
-        Movie.all.each do |movies|
-            puts "\n"
-            puts movies.name
+        prompt = TTY::Prompt.new
+        
+        puts "Here are the current movies available at local cinemas\n"
+
+        choices = []
+        Movie.all.each do |movie|
+            choices << {name: movie.name, value: movie}
         end
-        puts "\n"
-        movie_name = STDIN.gets.chomp 
-        movie = Movie.find_by(name: movie_name)
+
+        movie = prompt.select("Movies", choices)
 
         puts "\n"
         puts "Reserve a ticket at one of your local cinemas"
         puts "Enter the name of the one of the available theaters you want to reserve:"
-        MovieTheater.all.each do |movieTheaters|
-            puts "\n"
-            puts movieTheaters.name + ", " + movieTheaters.location
-            puts "\n"
+        choices = []
+        MovieTheater.all.each do |movie_theater|
+            choices << {name: "#{movie_theater.name}, #{movie_theater.location}", value: movie_theater}
         end
+
+        movie_theater = prompt.select("Movie Theater", choices)
         
-        movie_theater_name = STDIN.gets.chomp
-        movie_theater = MovieTheater.find_by(name: movie_theater_name)
 
         movie_rights = MovieRight.all.find_by(movies_id: movie.id, movie_theaters_id: movie_theater.id)
 
@@ -133,8 +121,15 @@ class User < ActiveRecord::Base
             new_movie_rights = MovieRight.make_rights(movie.id, movie_theater.id)
             self.reserve(new_movie_rights)
         end
-        puts "\n"
-        puts "Thank you for reserving #{movie_name}, at #{movie_theater_name}"
+        puts "Reserving...\n"
+        sleep(2)
+        puts "\n\n\n\n\n\n"
+        puts "Thank you for reserving #{movie.name}, at #{movie_theater.name}"
+
+        sleep(4)
+        system("clear")
+
+        what_to_do
     end
 
     def reserve(movie_rights)
@@ -154,45 +149,3 @@ class User < ActiveRecord::Base
     end
     
 end
-
-# def make_rights(movie_id, movie_theater_id)
-#     MakeRight.create(movie_id: movie_id, movie_theater_id: movie_theater_id)
-# end
-
-# def  self.reserved_movies(user)
-#     user.movie_rights.map{|rights| rights.movie}.uniq
-# end
-
-# def confirm_info(user)
-#         system("clear")
-#         puts "\n"
-#         puts "Here is your profile:"
-#         puts "\n"
-#         puts "Your name is: #{name}"
-#         puts "Your age is: #{age}"
-#         puts "Your password is: #{password}"
-#         puts "\n"
-#         # is_right
-
-#         sleep(1)
-#         system("clear")
-#         Cli.start
-#     end
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
